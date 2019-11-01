@@ -1,0 +1,74 @@
+{% extends 'movieclub/base.html' %}
+{% load static %}
+    
+
+{% block title %} Resultados de búsqueda - The MovieClub {% endblock %}
+
+{% block imports %} 
+  <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+  <script src="{% static 'js/inicio.js' %}"></script> 
+{% endblock %}
+
+{% block content %} 
+
+
+<h2 style="display:none" class="titsec mt-4 ml-3"> Resultados de búsqueda para "{{ query }}" </h2>
+
+<h3 class="ml-3"> Películas </h3>
+
+{% if resmovies %}
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col"> Título </th>
+                <th scope="col"> Año </th>
+                <th scope="col"> Puntuación </th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for result in resmovies %}
+        <tr>
+            <th scope="row"> <a href="{% url 'movpage' result.id %}"> {{ result.title }} </a></th>
+            <td> {{ result.release_date }} </td>
+            <td> {{ result.vote_average }} </td>
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h6 class="ml-3"> No hay resultados de películas para esta búsqueda. </h6>
+{% endif %}
+
+
+
+<h3 class="ml-3"> Atistas </h3>
+
+{% if respeople %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"> Nombre </th>
+                <th scope="col"> Conocido por </th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for result in respeople %}
+        <tr>
+            <th scope="row"> {{ result.name }}</th>
+            <td> 
+                {% for part in result.known_for %}
+                    {{ part.title }}, 
+                {% endfor %}
+            </td>
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h6 class="ml-3"> No hay resultados de artistas para esta búsqueda. </h6>
+{% endif %}
+
+
+
+
+{% endblock %}

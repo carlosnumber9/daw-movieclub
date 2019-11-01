@@ -1,0 +1,70 @@
+{% extends 'movieclub/base.html' %}
+{% load static %}
+
+{% block title %} {% if usuario %} Editar usuario {% else %} Crear usuario {% endif %} - The MovieClub {% endblock %}
+
+{% block content %} 
+
+<div class="container">
+        <h2 style="display:none" class="titsec mt-4 ml-3"> 
+            {% if usuario %} Editar usuario {% else %} Crear un nuevo usuario {% endif %} 
+        </h2>
+        <p class="lead"> Completa los siguientes campos </p>
+        {% if usuario %}
+        <form action="{% url 'p_userform' usuario.id %}" method="post">
+        {% else %}
+        <form action="{% url 'p_userform' 0 %}" method="post">
+        {% endif %}
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="input_username" >Nombre de usuario *</label>
+                <input class="form-control form-control-lg"  required type="text" name="input_username" id="input_username" value="{% if usuario %}{{ usuario.username }}{% endif %}">
+            </div>
+
+            {% if usuario %}
+            {% else %}
+            <div class="form-group">
+                    <label for="input_password" >Contraseña *</label>
+                    <input class="form-control form-control-lg"  required type="password" name="input_password" id="input_password" value="">
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="input_name" > Nombre </label>
+                <input class="form-control form-control-lg"  type="text" name="input_name" id="input_name" value="{% if usuario %}{{ usuario.first_name }}{% endif %}">
+            </div>
+
+            <div class="form-group">
+                    <label for="input_lastname" > Apellidos </label>
+                    <input class="form-control form-control-lg"  type="text" name="input_lastname" id="input_lastname" value="{% if usuario %}{{ usuario.last_name }}{% endif %}">
+            </div>
+
+
+            <div class="form-group">
+                <label for="input_email" > Correo electrónico </label>
+                <input class="form-control form-control-lg"  type="email" name="input_email" id="input_email" value="{% if usuario %}{{ usuario.email }}{% endif %}">
+            </div>
+
+
+            <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" id="staff" name="staff">
+                    <label class="form-check-label" for="staff">
+                      Habilitar permiso de administrador
+                    </label>
+            </div>
+
+            <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="active" name="active">
+                    <label class="form-check-label" for="active">
+                      Cuenta activa
+                    </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                 {% if movie %} Guardar cambios {% else %} Guardar {% endif %}
+            </button>
+            <a class="btn btn-primary" href="{% url 'manuser' %}" role="button"> Volver a Administración de usuarios </a> <!--Volver a pagina filmmanage.html-->
+        </form>
+</div>
+
+{% endblock %}

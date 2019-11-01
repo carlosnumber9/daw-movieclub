@@ -1,0 +1,111 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+    
+      <title> {% block title %} The Movie Club {% endblock %}</title>
+
+            {# JQuery #}
+            <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+            {# Bootstrap #}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+            {# FontAwesome #}
+            <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script> -->
+
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+            {# Blur.js (Sin usar) #}
+            <script src="{% static 'js/blur.js' %}"></script>
+
+            {# Fichero CSS #}
+            <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+            {# Fichero JS #}
+            <!--<script src="{% static 'js/script.js' %}"></script>-->
+            <script src="{% static 'js/base.js' %}"></script>
+
+            {% block imports %}{% endblock %}
+
+    </head>
+    <body style="background: url({% static 'img/wall4.png' %})">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand mr-5" href={% url 'index' %}> <img class="logo" src="{% static 'img/giphy.gif' %}" style="width:100px"> The Movie Club </a>
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+                <form class="form-inline my-2 my-lg-0 mr-5 ml-5" action={% url 'psearch' %} method="POST">
+                  {% csrf_token %} 
+                    
+                  <input class="form-control mr-sm-2" type="search" value="" name="query" id="query" placeholder="Películas, artistas..." aria-label="Search">
+                  
+                  <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Buscar</button>
+                
+                   </form> 
+                   <ul class="nav navbar-nav rounded sesion">
+                    <li class="nav-item active">
+                      <a href="#" class="nav-link disabled"> Bienvenido, {{ user_name }} </a> 
+                    </li>
+                    {% if user.is_staff %}
+                    <li class="nav-item active">
+                        <a href={% url 'manage' %} class="nav-link disabled"> <span class="badge bg-success"> Administración </span> </a> 
+                    </li>
+                    {% endif %}
+                     
+                    <li class="nav-item active">
+                        <a href={% url 'log_out' %} class="nav-link disabled"> <span class="badge bg-danger">Cerrar sesión </span> </a> 
+                    </li>
+                  </ul>
+              </ul>
+            </div>
+          </nav>
+
+
+
+
+
+
+
+
+
+
+
+          {% block content %}
+
+          {% endblock %}
+
+
+
+
+
+
+          
+<!-- Footer -->
+<footer class="page-footer font-small pt-4 mt-4">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2018 Universidad Politécnica de Madrid                
+    <img src="http://www.upm-motostudent.com/wp-content/uploads/2017/02/ESCUDO_COLOR-1.png" style="width:70px">
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+                
+
+
+
+    </body>

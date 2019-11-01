@@ -1,0 +1,81 @@
+{% extends 'movieclub/base.html' %}
+{% load static %}
+    
+
+{% block title %} {{ movie.name }} - The MovieClub {% endblock %}
+
+{% block imports %} 
+  <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+  <script src="{% static 'js/inicio.js' %}"></script> 
+{% endblock %}
+
+{% block content %} 
+
+<div class="container mt-4">
+    <div class="card card-body bg-dark mb-3"><h2 style="display:none" class="titsec titulo text-center" id="{{ movie.codigo }}"> {{ movie.name }} </h2></div>
+<section class="row">
+
+    <div class="col-lg-4">
+        <img class="col-lg-12 rounded" src="https://image.tmdb.org/t/p/w500/{{ movie.poster }}" style="border: 2px solid white">
+    </div>
+
+    <div class="col-lg-4 rounded" style="background:rgba(255, 255, 255, 0.3)">
+          <h4 class="mt-4"> Sinopsis </h4>
+          <p> {{ movie.desc }} </p>
+          <div class="text-center">
+          <h4><span class="badge bg-danger"> Valoración {{ movie.rating }}/10 </span></h4></div>
+
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-xs-4 rounded" style="background:rgba(255, 255, 255, 0.1)">
+            <h4 class="text-center mt-4"> Reparto </h4>
+            {% if cast %}
+            {% for pers in cast %}
+            <img id="{{ pers.cast_id }}" class="rounded-circle m-3 col-lg-4 col-md-4 col-xs-4" src="https://image.tmdb.org/t/p/w500/{{ pers.profile_path }}" style="border: 2px solid white">
+            {% endfor %}
+            
+            <h5 class="text-center mt-4"> Director: <span class="badge bg-info">{{ movie.director.name }}</span></h5>
+            {% endif %}
+    </div>
+
+</section>
+
+<div class="text-center mt-5">
+<button type="button" class="btn btn-danger btn-lg ml-3 bver"> <i class="fab fa-youtube"></i> Pulsa aquí para ver la película </button>
+
+
+{% if movie.video %}
+
+<iframe class="videomov ml-3"
+        style="display:none" 
+        width="100%"
+        height="500px"
+        src="https://www.youtube.com/embed/{{ movie.video }}" 
+        frameborder="0" 
+        allow="autoplay; encrypted-media" 
+        allowfullscreen>
+</iframe>
+
+{% else %}
+
+<h6 class="videomov ml-3" style="display:none"> No hay vídeos disponibles para esta película </h6>
+
+{% endif %}
+
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+	
+
+
+
+{% endblock %}

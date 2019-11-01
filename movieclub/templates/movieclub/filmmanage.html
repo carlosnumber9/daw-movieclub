@@ -1,0 +1,71 @@
+{% extends 'movieclub/base.html' %}
+{% load static %}
+
+{% block title %} Administración de películas - The MovieClub {% endblock %}
+
+{% block imports %} 
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
+  <script src="{% static 'js/filmmanage.js' %}"></script> 
+  <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+  <script src="{% static 'js/inicio.js' %}"></script> 
+{% endblock %}
+
+  
+
+
+{% block content %}
+
+
+<h2 style="display:none" class="titsec mt-4 ml-3 text-center"> Administración de películas </h2>
+
+
+
+<div class="container" id="tablaZone">
+        <!--Tabla-->
+        <form action="{% url 'filmform' 0 %}" class="m-4">
+        <button type="submit" class="btn btn-success" role="button">
+                <i class="fas fa-plus fa-3x"></i>
+            <!-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> -->
+        </button>
+        </form>
+        <table class="table table-striped table-light rounded">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movie in movies %}
+                <tr>
+                    <th scope="col" > {{ movie.codigo }} </th>
+
+                    <td scope="col"> <a href="{% url 'movpage' movie.codigo %}">{{ movie.name }} </a></td>
+                    <td>
+                        
+                        <div class="btn-group">
+                            <form action="{% url 'filmform' movie.codigo %}">
+                            <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-edit" title="Editar"></i>
+                            </button>
+                            </form>
+                            
+                            <button type="button" class="btn btn-danger delbtn" id="{{ movie.codigo }}">
+                                    <i class="fas fa-trash-alt" title="Eliminar"></i>
+                            </button>
+                            
+                            
+                        </div>  
+                        <div style="display: none" id="alert{{ movie.codigo }}" class="alert alert-danger" role="alert">
+                                ¿Estás seguro? Esta acción no se puede deshacer <a href="{% url 'delmov' movie.codigo %}" class="alert-link"> Eliminar </a> <a href="#" class="cancel"> Cancelar </a>
+                        </div>
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

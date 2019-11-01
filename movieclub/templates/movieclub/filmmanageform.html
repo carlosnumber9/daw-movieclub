@@ -1,0 +1,66 @@
+{% extends 'movieclub/base.html' %}
+{% load static %}
+
+{% block title %} {% if movie %} Editar película {% else %} Añadir película {% endif %} - The MovieClub {% endblock %}
+
+{% block content %} 
+
+<div class="container">
+        <h2 style="display:none" class="titsec mt-4 ml-3"> 
+            {% if movie %} Editar película {% else %} Añadir una nueva película {% endif %} 
+        </h2>
+        <p class="lead"> Completa los siguientes campos </p>
+        {% if movie %}
+        <form action="{% url 'p_filmform' movie.codigo %}" method="post">
+        {% else %}
+        <form action="{% url 'p_filmform' 0 %}" method="post">
+        {% endif %}
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="input_filmname" >Nombre *</label>
+                <input class="form-control"  required type="text" name="input_filmname" id="input_filmname" value="{% if movie %} {{ movie.name }} {% endif %}">
+            </div>
+
+            <div class="form-group">
+                <label for="input_filmvid" > URL del vídeo *</label>
+                {% if movie %}
+                <input class="form-control"  required type="text" name="input_filmvid" id="input_filmvid" value="{{ movie.video }}">
+                {% else %}
+                <input class="form-control"  required type="text" name="input_filmvid" id="input_filmvid" value="" placeholder="URL exclusiva del tráiler de Youtube">
+                {% endif %}
+            
+            </div>
+
+
+
+            <div class="form-group">
+                    <label for="input_filmdesc">Descripción</label>
+                    <textarea class="form-control" id="input_filmdesc" name="input_filmdesc" rows="4" value="">{% if movie %} {{ movie.desc }} {% endif %}</textarea>
+                  </div>
+
+
+                <div class="form-group row">
+                        <label for="input_filmdate" class="col-2 col-form-label">Date</label>
+                        <div class="col-10">
+                          <input class="form-control" type="date" value="2011-08-19" id="input_filmdate" name="input_filmdate">
+                        </div>
+                    </div>
+
+
+
+
+
+            <div class="form-group">
+                <label for="input_filmdate" > Puntuación </label>
+                <input class="form-control"  type="text" name="input_filmrat" id="input_filmrat" value="{% if movie %} {{ movie.rating }} {% endif %}">
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">
+                 {% if movie %} Guardar cambios {% else %} Guardar {% endif %}
+            </button>
+            <a class="btn btn-primary" href="{% url 'manmov' %}" role="button"> Volver a Administración de películas </a> <!--Volver a pagina filmmanage.html-->
+        </form>
+</div>
+
+{% endblock %}

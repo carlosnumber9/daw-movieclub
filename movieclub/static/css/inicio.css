@@ -1,0 +1,20 @@
+
+
+#carInicio {
+    height: 300px;
+}
+
+.titmov, .titsec {
+    color: white;
+}
+/*
+.titmov {
+    text-shadow: 2px 0px 11px rgba(0, 0, 0, 1);
+}
+
+*/
+
+.titmov {
+    text-decoration: none;
+    text-shadow: 1px 0px 4px rgba(0, 0, 0, 1);
+}
