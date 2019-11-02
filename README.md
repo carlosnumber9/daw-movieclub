@@ -1,4 +1,4 @@
-# daw-movieclub
+# Movieclub
 *Created by Yao Wu and Carlos Pinedo*
 
 Project developed for Web apps development subject in Computer Science Engineering, from Universidad Politécnica de Madrid.
